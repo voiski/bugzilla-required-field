@@ -1,0 +1,77 @@
+[%# The contents of this file are subject to the Mozilla Public
+  # License Version 2.0 (the "License"); you may not use this file
+  # except in compliance with the License. You may obtain a copy of
+  # the License at http://www.mozilla.org/MPL/
+  #
+  # Software distributed under the License is distributed on an "AS
+  # IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+  # implied. See the License for the specific language governing
+  # rights and limitations under the License.
+  #
+  # The Original Code is the RequiredField Extension.
+  #
+  # The Initial Developer of the Original Code is Alan Voiski
+  # Portions created by the Initial Developer are Copyright (C) 2014 the
+  # Initial Developer. All Rights Reserved.
+  #
+  # Contributor(s): 
+  #   Alan Voiski <alannunesv@gmail.com>
+  #%]
+
+<style type="text/css">
+  .bz_tui_hidden_custom tr{
+    display: none;
+  }
+  .bz_tui_hidden_custom tr.required-field{
+    display: table-row !important;
+  }
+</style>
+<script type="text/javascript">
+  //@override
+  function TUI_toggle_class(className) {
+      var elements = YAHOO.util.Dom.getElementsByClassName(className);
+      for (var i = 0; i < elements.length; i++) {
+          bz_toggleClass(elements[i], TUI_HIDDEN_CLASS);
+      }
+      _TUI_save_class_state(elements, className);
+      _TUI_toggle_control_link(className);
+      _TUI_requerid_control(className);
+  }
+
+  var TUI_HIDDEN_CLASS_CUSTOM='bz_tui_hidden_custom';
+  function _TUI_requerid_control(className){
+
+    var tbodys = YAHOO.util.Dom.getElementsByClassName(className);
+    for(var count=0; count<tbodys.length; count++){
+      var tbodyCurrent = tbodys[count];
+      var ths = tbodyCurrent.getElementsByTagName('th');
+
+
+      var isRequiredField = false;
+      for(var countThs=0; countThs<ths.length; countThs++){
+        var thCurrent = ths[countThs];
+        if(thCurrent.innerText.indexOf('*')!=-1){
+          isRequiredField = true;
+          bz_toggleClass(thCurrent.parentNode, "required-field");
+          bz_toggleClass(thCurrent, "required");
+          thCurrent.children[0].innerText = thCurrent.children[0].innerText.replace ('*','').replace (' :',':');
+        }else if(YAHOO.util.Dom.hasClass(thCurrent,"required")){
+          isRequiredField = true;
+        }
+      }
+
+
+      if(isRequiredField){
+        if(YAHOO.util.Dom.hasClass(tbodyCurrent,TUI_HIDDEN_CLASS)){
+          bz_toggleClass(tbodyCurrent, TUI_HIDDEN_CLASS);
+          bz_toggleClass(tbodyCurrent, TUI_HIDDEN_CLASS_CUSTOM);
+        }
+      }
+
+    }//end for
+  }
+
+  YAHOO.util.Event.onDOMReady(function(){
+    _TUI_requerid_control("expert_fields");
+  });
+</script>

@@ -1,0 +1,38 @@
+[%# The contents of this file are subject to the Mozilla Public
+  # License Version 2.0 (the "License"); you may not use this file
+  # except in compliance with the License. You may obtain a copy of
+  # the License at http://www.mozilla.org/MPL/
+  #
+  # Software distributed under the License is distributed on an "AS
+  # IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+  # implied. See the License for the specific language governing
+  # rights and limitations under the License.
+  #
+  # The Original Code is the RequiredField Extension.
+  #
+  # The Initial Developer of the Original Code is Alan Voiski
+  # Portions created by the Initial Developer are Copyright (C) 2014 the
+  # Initial Developer. All Rights Reserved.
+  #
+  # Contributor(s): 
+  #   Alan Voiski <alannunesv@gmail.com>
+  #%]
+<script type="text/javascript">
+  function _TUI_requerid_control_edition(){
+
+    var labels = YAHOO.util.Dom.getElementsByClassName('field_label');
+    for(var count=0; count<labels.length; count++){
+      var labelCurrent = labels[count];
+
+      if(labelCurrent.innerText.indexOf('*')!=-1){
+        //bz_toggleClass(labelCurrent, "required");
+        labelCurrent.children[0].innerText = labelCurrent.children[0].innerText.replace ('*','').replace (' :',':');
+      }
+
+    }//end for
+  }
+
+  YAHOO.util.Event.onDOMReady(function(){
+    _TUI_requerid_control_edition();
+  });
+</script>
