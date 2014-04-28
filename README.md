@@ -8,6 +8,12 @@ Version
 
 1.0
 
+Work for
+----
+
+Bugzilla [3.6.x,)
+*Please, report me if in the newer versions don't work. I had made for version 3.4.4, but the code is lost, I will do this work for both.
+
 Installation
 --------------
 
